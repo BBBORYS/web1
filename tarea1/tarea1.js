@@ -1,41 +1,80 @@
-const sales = [
-    { id: 1, serial: 'A123', customer: 'Juan Perez', printerModel: 'HP LaserJet Pro M404', price: 120 },
-    { id: 2, serial: 'B456', customer: 'Maria Gomez', printerModel: 'Epson EcoTank ET-2760', price: 200 },
-    { id: 3, serial: 'C789', customer: 'Pedro Fuentes', printerModel: 'Canon PIXMA G620', price: 90 },
-    { id: 4, serial: 'D012', customer: 'Luisa Torres', printerModel: 'Brother HL-L2390DW', price: 100 },
-    { id: 5, serial: 'E345', customer: 'Fernando Ruiz', printerModel: 'Xerox B215', price: 80 }
+
+const impresoras = [
+  {
+    id: 1,
+    marca: "HP",
+    modelo: "LaserJet",
+    precio: 299.99,
+  },
+  {
+    id: 2,
+    marca: "Epson",
+    modelo: "WorkForce",
+    precio: 199.99,
+  },
+  {
+    id: 3,
+    marca: "Canon",
+    modelo: "Pixma",
+    precio: 149.99,
+  },
+  {
+    id: 4,
+    marca: "Brother",
+    modelo: "HL-L2350DW",
+    precio: 179.99,
+  },
+  {
+    id: 5,
+    marca: "Samsung",
+    modelo: "Xpress",
+    precio: 129.99,
+  },
 ];
 
-sales.forEach(sale => console.log(sale.customer));
-
-for (let i in sales) {
-    console.log(sales[i].customer);
-}
-
-for (let sale of sales) {
-    console.log(sale.customer);
-}
-
-function getSale(sales, id, callback) {
-    const sale = sales.find(s => s.id === id);
-
-    if (!sale) {
-        return callback('Venta no encontrada');
-    }
-
-    callback(null, sale);
-}
-
-getSale(sales, 3, (err, sale) => {
-    if (err) {
-        console.log(err);
-        return;
-    }
-
-    console.log(sale);
+console.log("Usando forEach:");
+impresoras.forEach((impresora) => {
+  console.log(impresora.marca, impresora.modelo);
 });
 
-fetch('https://api.example.com/sales')
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
+console.log("\nUsando for in:");
+for (const index in impresoras) {
+  console.log(impresoras[index].marca, impresoras[index].modelo);
+}
+console.log("\nUsando for of:");
+for (const impresora of impresoras) {
+  console.log(impresora.marca, impresora.modelo);
+}
+
+
+function buscarImpresoraPorID(impresoras, id, callback) {
+  const impresoraEncontrada = impresoras.find((impresora) => impresora.id === id);
+  if (impresoraEncontrada) {
+    callback(impresoraEncontrada);
+  } else {
+    console.log("Impresora no encontrada");
+  }
+}
+
+
+buscarImpresoraPorID(impresoras, 3, (impresora) => {
+  console.log("\nImpresora encontrada por ID:");
+  console.log(impresora);
+});
+
+const apiUrl = "https://jsonplaceholder.typicode.com/todos/1";
+
+fetch(apiUrl)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Error en la solicitud");
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log("\nDatos de la API:");
+    console.log(data);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
