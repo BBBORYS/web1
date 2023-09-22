@@ -5,4 +5,12 @@ export interface Sale {
   customer: string;
   printerModel: string;
   price: number;
+  saleDate: Date; 
+}
+
+export interface Printer {
+  id: number;
+  model: string;
+  brand: string;
+  stock: number; 
 }
